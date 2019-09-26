@@ -7,7 +7,18 @@ import "../Theme.js" as Theme
 
 Page {
     id: page
-    header: Label { text: qsTr("Magnetometer") }
+    header: Label {
+        text: qsTr("Magnetometer")
+        horizontalAlignment: Text.AlignHCenter
+    }
+    footer: Item {
+        Button {
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "Back"
+            onClicked: page.StackView.view.pop();
+        }
+    }
 
     function formatNumber(n) {
         n *= 1e3;

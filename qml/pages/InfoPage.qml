@@ -5,7 +5,18 @@ import "../Theme.js" as Theme
 
 Page {
     id: page
-    header: Label { text: qsTr("Info") }
+    header: Label {
+        text: qsTr("Info")
+        horizontalAlignment: Text.AlignHCenter
+    }
+    footer: Item {
+        Button {
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "Back"
+            onClicked: page.StackView.view.pop();
+        }
+    }
 
     Flickable {
         anchors.fill: parent
@@ -37,25 +48,28 @@ Page {
                 text: qsTr("source code")
                 onClicked: Qt.openUrlExternally("https://github.com/Bytewerk/Messwerk")
             }
-            SectionHeader {
-                text: qsTr("Credits")
-            }
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Coding: ") + "cfr34k"
-            }
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Quality assurance: ") + "sqozz"
-            }
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Art & Design: ") + "sqozz, cfr34k"
-            }
-
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Translations: ") + "sqozz, cfr34k"
+            GroupBox {
+                title: qsTr("Credits")
+                width: parent.width
+                Column {
+                    width: parent.width
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("Coding: ") + "cfr34k"
+                    }
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("Quality assurance: ") + "sqozz"
+                    }
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("Art & Design: ") + "sqozz, cfr34k"
+                    }
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("Translations: ") + "sqozz, cfr34k"
+                    }
+                }
             }
         }
     }

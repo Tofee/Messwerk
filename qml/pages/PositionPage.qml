@@ -7,7 +7,18 @@ import "../Theme.js" as Theme
 
 Page {
     id: page
-    header: Label { text: qsTr("Position") }
+    header: Label {
+        text: qsTr("Position")
+        horizontalAlignment: Text.AlignHCenter
+    }
+    footer: Item {
+        Button {
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "Back"
+            onClicked: page.StackView.view.pop();
+        }
+    }
 
     property bool decimalCoord: true;
 
@@ -121,77 +132,83 @@ Page {
             width: page.width
             spacing: Theme.paddingLarge
 
-            Label {
-                text: qsTr("WGS84 Coordinates")
-            }
-            Column {
+            GroupBox {
+                title: qsTr("WGS84 Coordinates")
                 width: parent.width
-                spacing: Theme.paddingSmall
 
-                Label {
-                    id: fixlabel
-                    font.pixelSize: Theme.fontSizeLarge
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.paddingLarge
-                    text: qsTr('Fix: ') + page.formatFix(positionsensor.coordType)
-                }
-                Label {
-                    id: latlabel
-                    font.pixelSize: Theme.fontSizeLarge
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.paddingLarge
-                    text: qsTr('Latitude: ') + page.formatCoordinate(positionsensor.latitude, false)
-                }
-                Label {
-                    id: lonlabel
-                    font.pixelSize: Theme.fontSizeLarge
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.paddingLarge
-                    text: qsTr('Longitude: ') + page.formatCoordinate(positionsensor.longitude, true)
-                }
-                Label {
-                    id: altlabel
-                    font.pixelSize: Theme.fontSizeLarge
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.paddingLarge
-                    text: qsTr('Altitude: ') + page.formatAltitude(positionsensor.altitude)
+                Column {
+                    width: parent.width
+                    spacing: Theme.paddingSmall
+
+                    Label {
+                        id: fixlabel
+                        font.pixelSize: Theme.fontSizeLarge
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.paddingLarge
+                        text: qsTr('Fix: ') + page.formatFix(positionsensor.coordType)
+                    }
+                    Label {
+                        id: latlabel
+                        font.pixelSize: Theme.fontSizeLarge
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.paddingLarge
+                        text: qsTr('Latitude: ') + page.formatCoordinate(positionsensor.latitude, false)
+                    }
+                    Label {
+                        id: lonlabel
+                        font.pixelSize: Theme.fontSizeLarge
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.paddingLarge
+                        text: qsTr('Longitude: ') + page.formatCoordinate(positionsensor.longitude, true)
+                    }
+                    Label {
+                        id: altlabel
+                        font.pixelSize: Theme.fontSizeLarge
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.paddingLarge
+                        text: qsTr('Altitude: ') + page.formatAltitude(positionsensor.altitude)
+                    }
                 }
             }
-            Label {
-                text: qsTr("Accuracy")
-            }
-            Column {
+            GroupBox {
+                title: qsTr("Accuracy")
                 width: parent.width
-                spacing: Theme.paddingSmall
 
-                Label {
-                    id: horzAccLabel
-                    font.pixelSize: Theme.fontSizeLarge
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.paddingLarge
-                    text: qsTr('Horizontal: ') + page.formatAccuracy(positionsensor.horzAccuracy)
-                }
-                Label {
-                    id: vertAccLabel
-                    font.pixelSize: Theme.fontSizeLarge
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.paddingLarge
-                    text: qsTr('Vertical: ') + page.formatAccuracy(positionsensor.vertAccuracy)
+                Column {
+                    width: parent.width
+                    spacing: Theme.paddingSmall
+
+                    Label {
+                        id: horzAccLabel
+                        font.pixelSize: Theme.fontSizeLarge
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.paddingLarge
+                        text: qsTr('Horizontal: ') + page.formatAccuracy(positionsensor.horzAccuracy)
+                    }
+                    Label {
+                        id: vertAccLabel
+                        font.pixelSize: Theme.fontSizeLarge
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.paddingLarge
+                        text: qsTr('Vertical: ') + page.formatAccuracy(positionsensor.vertAccuracy)
+                    }
                 }
             }
-            Label {
-                text: qsTr("Maidenhead Locator")
-            }
-            Column {
+            GroupBox {
+                title: qsTr("Maidenhead Locator")
                 width: parent.width
-                spacing: Theme.paddingSmall
 
-                Label {
-                    id: locatorLabel
-                    font.pixelSize: Theme.fontSizeLarge
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.paddingLarge
-                    text: qsTr('Grid: ') + '<b>' + positionsensor.maidenhead + '</b>'
+                Column {
+                    width: parent.width
+                    spacing: Theme.paddingSmall
+
+                    Label {
+                        id: locatorLabel
+                        font.pixelSize: Theme.fontSizeLarge
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.paddingLarge
+                        text: qsTr('Grid: ') + '<b>' + positionsensor.maidenhead + '</b>'
+                    }
                 }
             }
         }

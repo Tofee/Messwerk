@@ -5,7 +5,18 @@ import "../Theme.js" as Theme
 
 Dialog {
     id: dialog
-    header: Label { text: qsTr("Accelerometer") }
+    header: Label {
+        text: qsTr("Settings")
+        horizontalAlignment: Text.AlignHCenter
+    }
+    footer: Item {
+        Button {
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "Back"
+            onClicked: page.StackView.view.pop();
+        }
+    }
 
     onAccepted: {
         settings.loggingPath = loggingPath.text;
@@ -24,16 +35,16 @@ Dialog {
             onClicked: dialog.accept();
         }
 
-        Label {
-            text: qsTr("Logging")
-        }
-
-        TextField {
-            id: loggingPath
+        GroupBox {
+            title: qsTr("Logging")
             width: parent.width
-            inputMethodHints: Qt.ImhNoAutoUppercase
-            text: settings.loggingPath
-          //  label: qsTr("Path for sensor logs")
+            TextField {
+                id: loggingPath
+                width: parent.width
+                inputMethodHints: Qt.ImhNoAutoUppercase
+                text: settings.loggingPath
+              //  label: qsTr("Path for sensor logs")
+            }
         }
 
         Switch {

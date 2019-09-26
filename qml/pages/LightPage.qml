@@ -7,7 +7,18 @@ import "../Theme.js" as Theme
 
 Page {
     id: page
-    header: Label { text: qsTr("Light & Proximity") }
+    header: Label {
+        text: qsTr("Light & Proximity")
+        horizontalAlignment: Text.AlignHCenter
+    }
+    footer: Item {
+        Button {
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "Back"
+            onClicked: page.StackView.view.pop();
+        }
+    }
 
     function formatNumber(n) {
         return '<b>' + n.toFixed(3) + ' Lux</b>';
@@ -73,45 +84,47 @@ Page {
             width: page.width
             spacing: Theme.paddingLarge
 
-            Label {
-                text: qsTr("Brightness")
-            }
-            Column {
+            GroupBox {
+                title: qsTr("Brightness")
                 width: parent.width
-                spacing: Theme.paddingSmall
-
-                Label {
-                    id: blabel
-                    font.pixelSize: Theme.fontSizeLarge
-                    anchors.right: parent.right
-                    anchors.rightMargin: Theme.paddingLarge
-                    text: qsTr('Brightness: ') + page.formatNumber(lightsensor.brightness)
-                }
-                PlotWidget {
-                    id: bplot
+                Column {
                     width: parent.width
-                    height: 150
-                    plotColor: Theme.highlightColor
-                    scaleColor: Theme.secondaryHighlightColor
-                }
-            }
-            Label {
-                text: qsTr("Proximity")
-            }
-            Label {
-                id: proximityLabel
-                font.pixelSize: Theme.fontSizeLarge
-                anchors.horizontalCenter: parent.horizontalCenter
-                font.bold: proximitysensor.detected
-                font.strikeout: !proximitysensor.detected
-                color: {
-                    if(proximitysensor.detected) {
-                        return Theme.highlightColor;
-                    } else {
-                        return Theme.secondaryColor;
+                    spacing: Theme.paddingSmall
+
+                    Label {
+                        id: blabel
+                        font.pixelSize: Theme.fontSizeLarge
+                        anchors.right: parent.right
+                        anchors.rightMargin: Theme.paddingLarge
+                        text: qsTr('Brightness: ') + page.formatNumber(lightsensor.brightness)
+                    }
+                    PlotWidget {
+                        id: bplot
+                        width: parent.width
+                        height: 150
+                        plotColor: Theme.highlightColor
+                        scaleColor: Theme.secondaryHighlightColor
                     }
                 }
-                text: qsTr('Proximity detected')
+            }
+            GroupBox {
+                title: qsTr("Proximity")
+                width: parent.width
+                Label {
+                    id: proximityLabel
+                    font.pixelSize: Theme.fontSizeLarge
+                    anchors.horizontalCenter: parent.horizontalCenter
+                    font.bold: proximitysensor.detected
+                    font.strikeout: !proximitysensor.detected
+                    color: {
+                        if(proximitysensor.detected) {
+                            return Theme.highlightColor;
+                        } else {
+                            return Theme.secondaryColor;
+                        }
+                    }
+                    text: qsTr('Proximity detected')
+                }
             }
         }
     }

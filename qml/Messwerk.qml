@@ -35,13 +35,16 @@ import "pages"
 
 ApplicationWindow
 {
+    // define some decent default size
+    height: 600
+    width: 400
+
     visible: true
     StackView {
         id: pageStackView
         anchors.fill: parent
 
         initialItem: FirstPage {
-            property StackView pageStack: pageStackView
         }
     }
 }

@@ -7,7 +7,18 @@ import "../Theme.js" as Theme
 
 Page {
     id: page
-    header: Label { text: qsTr("Pressure Sensor") }
+    header: Label {
+        text: qsTr("Pressure Sensor")
+        horizontalAlignment: Text.AlignHCenter
+    }
+    footer: Item {
+        Button {
+            anchors.bottom: parent.bottom
+            anchors.horizontalCenter: parent.horizontalCenter
+            text: "Back"
+            onClicked: page.StackView.view.pop();
+        }
+    }
 
     function formatNumber(n) {
         return '<b>' + n.toFixed(3) + ' Pa</b>';

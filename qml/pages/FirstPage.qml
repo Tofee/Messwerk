@@ -5,9 +5,11 @@ import "../Theme.js" as Theme
 
 Page {
     id: page
+    property StackView pageStack: StackView.view
 
     header: Label {
         text: qsTr("Select Sensor")
+        horizontalAlignment: Text.AlignHCenter
     }
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
