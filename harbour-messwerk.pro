@@ -49,17 +49,22 @@ QML_FILES = qml/Messwerk.qml \
     qml/pages/SatellitePage.qml \
     qml/pages/PositionPage.qml \
     qml/Theme.js \
-    qml/Constants.js \
+    qml/Constants.js
 
-OTHER_FILES += translations/*.ts $$QML_FILES
+RUNTIME_FILES = appinfo.json \
+                harbour-messwerk.png
 
-qml_files.path = $$[QT_INSTALL_QML]
-qml_files.files = $$QML_FILES
+OTHER_FILES += translations/*.ts $$QML_FILES $$RUNTIME_FILES
 
-INSTALLS += qml_files
+qml_files.path = $$DEPLOYMENT_PATH
+qml_files.files = qml
 
-# to disable building translations every time, comment out the
-# following CONFIG line
+runtime_files.path = $$DEPLOYMENT_PATH
+runtime_files.files = $$RUNTIME_FILES
+
+target.path = $$DEPLOYMENT_PATH
+INSTALLS += target qml_files runtime_files
+
 TRANSLATIONS += translations/harbour-messwerk-de.ts \
     translations/harbour-messwerk-pl.ts \
     translations/harbour-messwerk-sv.ts

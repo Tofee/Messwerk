@@ -4,7 +4,7 @@
 
 #include <QObject>
 #include <QString>
-#include <QQuickView>
+#include <QQmlApplicationEngine>
 #include <QQmlContext>
 #include <QGuiApplication>
 #include <QTimer>
@@ -31,10 +31,12 @@ int main(int argc, char *argv[])
 {
     int result = 0;
 
-    QString qml = QString("qml/%1.qml").arg("Messwerk");
+    qputenv("QT_QUICK_CONTROLS_STYLE", "LuneOS");
 
     QGuiApplication app(argc, argv);
     QQmlApplicationEngine engine;
+
+    QString qml = QString("%1/qml/%2.qml").arg(QCoreApplication::applicationDirPath()).arg("Messwerk");
 
     qmlRegisterType<PlotWidget>("harbour.messwerk.MesswerkWidgets", 1, 0, "PlotWidget");
     qmlRegisterType<SatellitePosWidget>("harbour.messwerk.MesswerkWidgets", 1, 0, "SatellitePosWidget");

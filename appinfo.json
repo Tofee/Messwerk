@@ -1,0 +1,11 @@
+{
+    "id": "messwerk",
+    "title": "Messwerk",
+    "version": "0.1.0",
+    "main": "harbour-messwerk",
+    "params": "",
+    "type": "qt",
+    "uiRevision": 2,
+    "vendorurl": "https://github.com/Tofee/Messwerk",
+    "icon": "harbour-messwerk.png"
+}
