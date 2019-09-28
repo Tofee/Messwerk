@@ -1,14 +1,30 @@
-import QtQuick 2.0
-import Sailfish.Silica 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.9
+import QtQuick.Controls.LuneOS 2.0
 
+import LunaNext.Common 0.1
 
-Page {
+import "CustomTheme"
+
+BasePage {
     id: page
+    headerText: "Select Sensor"
+
+    function instantiatePage(subPage)
+    {
+        // remove any previously instantiated page
+        var previousPage = swipeView.itemAt(1);
+        if(!!previousPage) swipeView.removeItem(previousPage);
+
+        var newComponent = Qt.createComponent(subPage);
+        var newPage = newComponent.createObject(swipeView);
+        swipeView.currentIndex = 1;
+    }
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
-    SilicaFlickable {
+    Flickable {
         anchors.fill: parent
-
+/*
         // PullDownMenu and PushUpMenu must be declared in SilicaFlickable, SilicaListView or SilicaGridView
         PullDownMenu {
             MenuItem {
@@ -20,9 +36,10 @@ Page {
                 onClicked: pageStack.push(Qt.resolvedUrl("InfoPage.qml"))
             }
         }
-
-        // Tell SilicaFlickable the height of its content.
+*/
         contentHeight: column.height
+        // cut out-of-bound graphics
+        clip: true
 
         // Place our content in a Column.  The PageHeader is always placed at the top
         // of the page, followed by our content.
@@ -30,59 +47,85 @@ Page {
             id: column
 
             width: page.width
-            spacing: Theme.paddingLarge
+            spacing: Units.gu(2.0)
 
-
-            PageHeader {
-                title: qsTr("Select Sensor")
-            }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Position")
-                onClicked: pageStack.push(Qt.resolvedUrl("PositionPage.qml"))
-                color: (satelliteinfo.isLogging ? Theme.highlightColor : Theme.primaryColor)
+                onClicked: instantiatePage(Qt.resolvedUrl("PositionPage.qml"))
+                highlighted: satelliteinfo.isLogging
+                font.pixelSize: FontUtils.sizeToPixels("large")
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("GNSS Satellites")
-                onClicked: pageStack.push(Qt.resolvedUrl("SatellitePage.qml"))
-                color: (satelliteinfo.isLogging ? Theme.highlightColor : Theme.primaryColor)
+                onClicked: instantiatePage(Qt.resolvedUrl("SatellitePage.qml"))
+                highlighted: satelliteinfo.isLogging
+                font.pixelSize: FontUtils.sizeToPixels("large")
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Rotation")
-                onClicked: pageStack.push(Qt.resolvedUrl("RotationPage.qml"))
-                color: (rotationsensor.isLogging ? Theme.highlightColor : Theme.primaryColor)
+                onClicked: instantiatePage(Qt.resolvedUrl("RotationPage.qml"))
+                highlighted: rotationsensor.isLogging
+                font.pixelSize: FontUtils.sizeToPixels("large")
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Accelerometer")
-                onClicked: pageStack.push(Qt.resolvedUrl("AccelPage.qml"))
-                color: (accelerometer.isLogging ? Theme.highlightColor : Theme.primaryColor)
+                onClicked: instantiatePage(Qt.resolvedUrl("AccelPage.qml"))
+                highlighted: accelerometer.isLogging
+                font.pixelSize: FontUtils.sizeToPixels("large")
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Gyroscope")
-                onClicked: pageStack.push(Qt.resolvedUrl("GyroPage.qml"))
-                color: (gyroscope.isLogging ? Theme.highlightColor : Theme.primaryColor)
+                onClicked: instantiatePage(Qt.resolvedUrl("GyroPage.qml"))
+                highlighted: gyroscope.isLogging
+                font.pixelSize: FontUtils.sizeToPixels("large")
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Magnetometer")
-                onClicked: pageStack.push(Qt.resolvedUrl("MagnetPage.qml"))
-                color: (magnetometer.isLogging ? Theme.highlightColor : Theme.primaryColor)
+                onClicked: instantiatePage(Qt.resolvedUrl("MagnetPage.qml"))
+                highlighted: magnetometer.isLogging
+                font.pixelSize: FontUtils.sizeToPixels("large")
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Light & Proximity")
-                onClicked: pageStack.push(Qt.resolvedUrl("LightPage.qml"))
-                color: ((lightsensor.isLogging || proximitysensor.isLogging) ? Theme.highlightColor : Theme.primaryColor)
+                onClicked: instantiatePage(Qt.resolvedUrl("LightPage.qml"))
+                highlighted: (lightsensor.isLogging || proximitysensor.isLogging)
+                font.pixelSize: FontUtils.sizeToPixels("large")
             }
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Pressure Sensor")
-                onClicked: pageStack.push(Qt.resolvedUrl("PressurePage.qml"))
-                color: (pressuresensor.isLogging ? Theme.highlightColor : Theme.primaryColor)
+                onClicked: instantiatePage(Qt.resolvedUrl("PressurePage.qml"))
+                highlighted: pressuresensor.isLogging
+                font.pixelSize: FontUtils.sizeToPixels("large")
+            }
+
+            Row {
+                anchors.horizontalCenter: parent.horizontalCenter
+                bottomPadding: Units.gu(2.0)
+                spacing: Units.gu(3.0)
+                Button {
+                    id: settingsButton
+                    text: qsTr("Settings")
+                    onClicked: instantiatePage(Qt.resolvedUrl("SettingsDialog.qml"))
+                    font.pixelSize: FontUtils.sizeToPixels("large")
+
+                    LuneOSButton.mainColor: "orange"
+                }
+                Button {
+                    id: infoButton
+                    text: qsTr("About")
+                    onClicked: instantiatePage(Qt.resolvedUrl("InfoPage.qml"))
+                    font.pixelSize: FontUtils.sizeToPixels("large")
+
+                    LuneOSButton.mainColor: LuneOSButton.blueColor
+                }
             }
         }
     }

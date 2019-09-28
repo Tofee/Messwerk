@@ -1,11 +1,13 @@
-import QtQuick 2.0
-import Sailfish.Silica 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.9
 import harbour.messwerk.MesswerkWidgets 1.0
 
 import "../Constants.js" as Constants
+import "CustomTheme"
 
-Page {
+BasePage {
     id: page
+    headerText: "GNSS Satellites"
 
     function updateSkyPlot() {
         skyPlot.northDirection = rotationsensor.rz;
@@ -31,12 +33,13 @@ Page {
     }
 
     // To enable PullDownMenu, place our content in a SilicaFlickable
-    SilicaFlickable {
+    Flickable {
         anchors.fill: parent
 
-        // Tell SilicaFlickable the height of its content.
         contentHeight: column.height
-
+        // cut out-of-bound graphics
+        clip: true
+/*
         PullDownMenu {
             MenuItem {
                 function toggleLogging() {
@@ -51,7 +54,7 @@ Page {
                 onClicked: toggleLogging()
             }
         }
-
+*/
         // Place our content in a Column.  The PageHeader is always placed at the top
         // of the page, followed by our content.
         Column {
@@ -60,10 +63,6 @@ Page {
             width: page.width
             spacing: Theme.paddingLarge
 
-
-            PageHeader {
-                title: qsTr("Position")
-            }
             SatellitePosWidget {
                 id: skyPlot
                 width: parent.width

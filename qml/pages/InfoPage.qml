@@ -1,13 +1,18 @@
-import QtQuick 2.0
-import Sailfish.Silica 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.9
 
-Page {
+import "CustomTheme"
+
+BasePage {
     id: page
+    headerText: "About"
 
-    SilicaFlickable {
+    Flickable {
         anchors.fill: parent
 
         contentHeight: column.height
+        // cut out-of-bound graphics
+        clip: true
 
         Column {
             id: column
@@ -15,9 +20,6 @@ Page {
             width: page.width
             spacing: Theme.paddingLarge
 
-            PageHeader {
-                title: qsTr("Info")
-            }
             Label {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("Created by bytewerk™ Software Inc.")
@@ -35,27 +37,34 @@ Page {
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("source code")
-                onClicked: Qt.openUrlExternally("https://github.com/Bytewerk/Messwerk")
+                onClicked: Qt.openUrlExternally("https://github.com/Tofee/Messwerk")
             }
-            SectionHeader {
-                text: qsTr("Credits")
-            }
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Coding: ") + "cfr34k"
-            }
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Quality assurance: ") + "sqozz"
-            }
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Art & Design: ") + "sqozz, cfr34k"
-            }
-
-            Label {
-                anchors.horizontalCenter: parent.horizontalCenter
-                text: qsTr("Translations: ") + "sqozz, cfr34k"
+            GroupBox {
+                title: qsTr("Credits")
+                width: parent.width
+                Column {
+                    width: parent.width
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("Coding: ") + "cfr34k"
+                    }
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("LuneOS port: ") + "Tofe"
+                    }
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("Quality assurance: ") + "sqozz"
+                    }
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("Art & Design: ") + "sqozz, cfr34k"
+                    }
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("Translations: ") + "sqozz, cfr34k"
+                    }
+                }
             }
         }
     }

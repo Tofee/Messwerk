@@ -1,15 +1,15 @@
-import QtQuick 2.0
-import Sailfish.Silica 1.0
+import QtQuick 2.9
+import QtQuick.Controls 2.9
+import QtQuick.Controls.LuneOS 2.0
 
+import LunaNext.Common 0.1
 
-Dialog {
+import "CustomTheme"
+
+BasePage {
     id: dialog
 
-    onAccepted: {
-        settings.loggingPath = loggingPath.text;
-        settings.preventDisplayBlanking = preventDisplayBlanking.checked;
-    }
-
+    headerText: "Settings"
 
     Column {
         id: column
@@ -17,28 +17,35 @@ Dialog {
         width: dialog.width
         spacing: Theme.paddingLarge
 
-        DialogHeader {
-            acceptText: qsTr("Save")
-        }
-
-        SectionHeader {
-            text: qsTr("Logging")
-        }
-
-        TextField {
-            id: loggingPath
+        GroupBox {
+            title: qsTr("Logging")
             width: parent.width
-            inputMethodHints: Qt.ImhNoAutoUppercase
-            text: settings.loggingPath
-            label: qsTr("Path for sensor logs")
+            TextField {
+                id: loggingPath
+                width: parent.width
+                inputMethodHints: Qt.ImhNoAutoUppercase
+                text: settings.loggingPath
+              //  label: qsTr("Path for sensor logs")
+            }
         }
 
-        TextSwitch {
+        Switch {
             id: preventDisplayBlanking
+            anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("Prevent display blanking")
-            description: qsTr("Prevents display blanking on sensor plotting pages")
+            //description: qsTr("Prevents display blanking on sensor plotting pages")
             checked: settings.preventDisplayBlanking
-            enabled: !settings.isHarbourVersion
+        }
+
+        Button {
+            text: qsTr("Save")
+            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: {
+                settings.loggingPath = loggingPath.text;
+                settings.preventDisplayBlanking = preventDisplayBlanking.checked;
+                swipeView.currentIndex = 0;
+            }
+            LuneOSButton.mainColor: LuneOSButton.affirmativeColor
         }
     }
 }
