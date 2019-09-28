@@ -48,7 +48,9 @@ QML_FILES = qml/Messwerk.qml \
     qml/pages/SettingsDialog.qml \
     qml/pages/SatellitePage.qml \
     qml/pages/PositionPage.qml \
-    qml/Theme.js \
+    qml/pages/BasePage.qml \
+    qml/pages/CustomTheme/Theme.qml \
+    qml/pages/CustomTheme/qmldir \
     qml/Constants.js
 
 RUNTIME_FILES = appinfo.json \

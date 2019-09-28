@@ -1,27 +1,18 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.9
+import QtQuick.Controls 2.9
 
-import "../Theme.js" as Theme
+import "CustomTheme"
 
-Page {
+BasePage {
     id: page
-    header: Label {
-        text: qsTr("Info")
-        horizontalAlignment: Text.AlignHCenter
-    }
-    footer: Item {
-        Button {
-            anchors.bottom: parent.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "Back"
-            onClicked: page.StackView.view.pop();
-        }
-    }
+    headerText: "About"
 
     Flickable {
         anchors.fill: parent
 
         contentHeight: column.height
+        // cut out-of-bound graphics
+        clip: true
 
         Column {
             id: column
@@ -46,7 +37,7 @@ Page {
             Button {
                 anchors.horizontalCenter: parent.horizontalCenter
                 text: qsTr("source code")
-                onClicked: Qt.openUrlExternally("https://github.com/Bytewerk/Messwerk")
+                onClicked: Qt.openUrlExternally("https://github.com/Tofee/Messwerk")
             }
             GroupBox {
                 title: qsTr("Credits")
@@ -56,6 +47,10 @@ Page {
                     Label {
                         anchors.horizontalCenter: parent.horizontalCenter
                         text: qsTr("Coding: ") + "cfr34k"
+                    }
+                    Label {
+                        anchors.horizontalCenter: parent.horizontalCenter
+                        text: qsTr("LuneOS port: ") + "Tofe"
                     }
                     Label {
                         anchors.horizontalCenter: parent.horizontalCenter

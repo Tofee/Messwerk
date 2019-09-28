@@ -1,24 +1,13 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.9
+import QtQuick.Controls 2.9
 import harbour.messwerk.MesswerkWidgets 1.0
 
 import "../Constants.js" as Constants
-import "../Theme.js" as Theme
+import "CustomTheme"
 
-Page {
+BasePage {
     id: page
-    header: Label {
-        text: qsTr("Position")
-        horizontalAlignment: Text.AlignHCenter
-    }
-    footer: Item {
-        Button {
-            anchors.bottom: parent.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "Back"
-            onClicked: page.StackView.view.pop();
-        }
-    }
+    headerText: "Position"
 
     property bool decimalCoord: true;
 
@@ -84,7 +73,7 @@ Page {
 
             default:
                 return '<b>Unknown</b>';
-        };
+        }
     }
 
     Component.onCompleted: {
@@ -98,8 +87,9 @@ Page {
     Flickable {
         anchors.fill: parent
 
-        // Tell SilicaFlickable the height of its content.
         contentHeight: column.height
+        // cut out-of-bound graphics
+        clip: true
 /*
         PullDownMenu {
             MenuItem {

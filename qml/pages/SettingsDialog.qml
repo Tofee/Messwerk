@@ -1,39 +1,21 @@
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.9
+import QtQuick.Controls 2.9
+import QtQuick.Controls.LuneOS 2.0
 
-import "../Theme.js" as Theme
+import LunaNext.Common 0.1
 
-Dialog {
+import "CustomTheme"
+
+BasePage {
     id: dialog
-    header: Label {
-        text: qsTr("Settings")
-        horizontalAlignment: Text.AlignHCenter
-    }
-    footer: Item {
-        Button {
-            anchors.bottom: parent.bottom
-            anchors.horizontalCenter: parent.horizontalCenter
-            text: "Back"
-            onClicked: page.StackView.view.pop();
-        }
-    }
 
-    onAccepted: {
-        settings.loggingPath = loggingPath.text;
-        settings.preventDisplayBlanking = preventDisplayBlanking.checked;
-    }
-
+    headerText: "Settings"
 
     Column {
         id: column
 
         width: dialog.width
         spacing: Theme.paddingLarge
-
-        Button {
-            text: qsTr("Save")
-            onClicked: dialog.accept();
-        }
 
         GroupBox {
             title: qsTr("Logging")
@@ -49,10 +31,21 @@ Dialog {
 
         Switch {
             id: preventDisplayBlanking
+            anchors.horizontalCenter: parent.horizontalCenter
             text: qsTr("Prevent display blanking")
             //description: qsTr("Prevents display blanking on sensor plotting pages")
             checked: settings.preventDisplayBlanking
-            enabled: !settings.isHarbourVersion
+        }
+
+        Button {
+            text: qsTr("Save")
+            anchors.horizontalCenter: parent.horizontalCenter
+            onClicked: {
+                settings.loggingPath = loggingPath.text;
+                settings.preventDisplayBlanking = preventDisplayBlanking.checked;
+                swipeView.currentIndex = 0;
+            }
+            LuneOSButton.mainColor: LuneOSButton.affirmativeColor
         }
     }
 }

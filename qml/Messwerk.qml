@@ -28,8 +28,8 @@
   SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 */
 
-import QtQuick 2.12
-import QtQuick.Controls 2.12
+import QtQuick 2.9
+import QtQuick.Controls 2.9
 
 import "pages"
 
@@ -40,12 +40,22 @@ ApplicationWindow
     width: 400
 
     visible: true
-    StackView {
-        id: pageStackView
+    SwipeView {
+        id: pageSwipeView
+
         anchors.fill: parent
 
-        initialItem: FirstPage {
-        }
+        FirstPage {}
+    }
+
+    PageIndicator {
+        id: indicator
+
+        count: pageSwipeView.count
+        currentIndex: pageSwipeView.currentIndex
+
+        anchors.bottom: pageSwipeView.bottom
+        anchors.horizontalCenter: parent.horizontalCenter
     }
 }
 
